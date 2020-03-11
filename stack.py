@@ -2,28 +2,31 @@ import numpy as np
 
 #search = np.array([(-66,-76,-78,-62,-79,-81)]) #busca B6A retorna (B6B, B6C, e B10.5)
 #search = np.array([(-73,-73,-77,-53,-70,-78)]) #busca B6B retorna (B6A, B6B, B6C, B10.5)
-#search = np.array([(-70,-60,-61,-69,-78,-72)]) #busca B9B retorna (B9B)
-search = np.array([(-100,-67,-63,-49,-53,-48)]) #busca WC-M retorna (WC-M)
+search = np.array([(-70,-60,-61,-69,-78,-72)]) #busca B9B retorna (B9B)
+#search = np.array([(-100,-67,-63,-49,-53,-48)]) #busca WC-M retorna (WC-M)
 #search = np.array([(-57,-63,-63,-64,-100,-100)]) #busca B10.2 retorna (B104)
 #search = np.array([(-100,-72,-74,-59,-79,-100)]) #busca B8B retorna (B8A)
 
 #Exemplo
 #search = np.array([(-100,-67,-63,-49,-53,-48)])
 
-B1A = np.array([(-46,-78,-72,-70,-81,-59)])
-B1B = np.array([(-100,-82,-85,-100,-76,-55)])
-B1C = np.array([(-100,-100,-100,-78,-100,-58)])
-B1D = np.array([(-51,-64,-73,-67,-79,-56)])
-B4A = np.array([(-77,-100,-84,-75,-72,-72)])
-B4B = np.array([(-78,-81,-80,-72,-70,-67)])
-B4C = np.array([(-76,-76,-81,-67,-62,-67)])
-B5A = np.array([(-100,-76,-80,-67,-61,-69)])
-B5B = np.array([(-100,-79,-80,-68,-59,-71)])
-B6A = np.array([(-77,-81,-78,-62,-76,-80)])
-B6B = np.array([(-68,-75,-76,-54,-73,-74)])
-B6C = np.array([(-72,-73,-72,-62,-72,-75)])
-B7A = np.array([(-100,-78,-78,-65,-74,-78)])
-B7B = np.array([(-100,-81,-77,-69,-74,-76)])
+B1A = np.array([(-46,-78,-72,-70,-81,-59)])     #B1A
+B1B = np.array([(-100,-82,-85,-100,-76,-55)])   #B1B
+B1C = np.array([(-100,-100,-100,-78,-100,-58)]) #B1C
+B2A = np.array([(-100,-88,-100,-100,-100,-60)])  #B2A
+B2B = np.array([(-100,-78,-79,-80,-80,-59)])     #B2B
+B3A = np.array([(-100,-100,-100,78,-77,-57)])    #B3A
+B3B = np.array([(-100,-100,-100,-80,-80,-52)])   #B3B
+B4A = np.array([(-77,-100,-84,-75,-72,-72)])    #B4A
+B4B = np.array([(-78,-81,-80,-72,-70,-67)])     #B4B
+B4C = np.array([(-76,-76,-81,-67,-62,-67)])     #B4C
+B5A = np.array([(-100,-76,-80,-67,-61,-69)])    #B5A
+B5B = np.array([(-100,-79,-80,-68,-59,-71)])    #B5B
+B6A = np.array([(-77,-81,-78,-62,-76,-80)])     #B6A
+B6B = np.array([(-68,-75,-76,-54,-73,-74)])     #B6B
+B6C = np.array([(-72,-73,-72,-62,-72,-75)])     #B6C
+B7A = np.array([(-100,-78,-78,-65,-74,-78)])    #B7A
+B7B = np.array([(-100,-81,-77,-69,-74,-76)])    #B7B
 B8A = np.array([(-100,-77,-75,-66,-81,-100)])    #B8A
 B8B = np.array([(-82,-74,-76,-64,-80,-100)])     #B8B
 B9A = np.array([(-73,-66,-62,-69,-76,-100)])     #B9A
@@ -48,15 +51,115 @@ C3 = np.array([(-67,-58,-60,-48,58,-57)])       #C3
 C4 = np.array([(-55,-46,-57,-52,-54,-55)])      #C4
 C5 = np.array([(-100,-48,-60,-58,-64,-57)])      #C5
 
-candidatos = [B1A, B1B, B1C, B1D, B4A, B4B, B4C, B5A, B5B, B6A, B6B, B6C, B7A, B7B, B8A, B8B, B9A, B9B, B9C, B101, B102, B103, B104, B105, B11A, B11B, B11C, B12A, B12B, B12C, WCM, WCF, C1, C2, C3, C4, C5]
-margem_erro = 10.0
+candidatos = [B1A, B1B, B1C, B2A, B2B, B3A, B3B, B4A, B4B, B4C, B5A, B5B, B6A, B6B, B6C, B7A, B7B, B8A, B8B, B9A, B9B, B9C, B101, B102, B103, B104, B105, B11A, B11B, B11C, B12A, B12B, B12C, WCM, WCF, C1, C2, C3, C4, C5]
+margem_erroP = 10.0
+margem_erroN = -10.0
+
 
 distancias = candidatos[::] - search # Avalia a distância de cada vetor para o vetor de busca.
-avaliar_dist = np.where(np.absolute(distancias) < margem_erro, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
-vetores_aprovados = avaliar_dist.all(axis=2) # Marca Verdadeiro se toda a linha tem valores Verdadeiros.
-posicao_aprovados = np.array(np.where(vetores_aprovados== True)[0]) # Grava a posição dos vetores dentro da margem de erro.
+print(distancias)
+input("Press Enter to continue...")
 
+avaliar_dist = np.where(np.absolute(distancias) < margem_erroP, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
+#avaliar_dist = np.where(np.absolute(distancias) < margem_erroN, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
+print(avaliar_dist)
+input("Press Enter to continue...")
+
+vetores_aprovados = avaliar_dist.all(axis=2) # Marca Verdadeiro se toda a linha tem valores Verdadeiros.
+print(vetores_aprovados)
+input("Press Enter to continue...")
+
+posicao_aprovados = np.array(np.where(vetores_aprovados== True)[0]) # Grava a posição dos vetores dentro da margem de erro.
+print(posicao_aprovados)
+input("Press Enter to continue...")
+
+print("---- Resultado ----")
+print()
 print("Busca: {}".format(search))
 print("Resultado: ")
 for x in posicao_aprovados:
     print(candidatos[x])
+
+
+if posicao_aprovados == 0:
+    print("Local: B1A")
+elif posicao_aprovados == 1:
+    print("Local: B1B")
+elif posicao_aprovados == 2:
+    print("Local: B1C")
+elif posicao_aprovados == 3:
+    print("Local: B2A")
+elif posicao_aprovados == 4:
+    print("Local: B2B")
+elif posicao_aprovados == 5:
+    print("Local: B3A")
+elif posicao_aprovados == 6:
+    print("Local: B3B")
+elif posicao_aprovados == 7:
+    print("Local: B4A")
+elif posicao_aprovados == 8:
+    print("Local: B4B")
+elif posicao_aprovados == 9:
+    print("Local: B4C")
+elif posicao_aprovados == 10:
+    print("Local: B5A")
+elif posicao_aprovados == 11:
+    print("Local: B5B")
+elif posicao_aprovados == 12:
+    print("Local: B6A")
+elif posicao_aprovados == 13:
+    print("Local: B6B")
+elif posicao_aprovados == 14:
+    print("Local: B6C")
+elif posicao_aprovados == 15:
+    print("Local: B7A")
+elif posicao_aprovados == 16:
+    print("Local: B7B")
+elif posicao_aprovados == 17:
+    print("Local: B8A")
+elif posicao_aprovados == 18:
+    print("Local: B8B")
+elif posicao_aprovados == 19:
+    print("Local: B9A")
+elif posicao_aprovados == 20:
+    print("Local: B9B")
+elif posicao_aprovados == 21:
+    print("Local: B9C")
+elif posicao_aprovados == 22:
+    print("Local: B10.1")
+elif posicao_aprovados == 23:
+    print("Local: B10.2")
+elif posicao_aprovados == 24:
+    print("Local: B10.3")
+elif posicao_aprovados == 25:
+    print("Local: B10.4")
+elif posicao_aprovados == 26:
+    print("Local: B10.5")
+elif posicao_aprovados == 27:
+    print("Local: B11A")
+elif posicao_aprovados == 28:
+    print("Local: B11B")
+elif posicao_aprovados == 29:
+    print("Local: B11C")
+elif posicao_aprovados == 30:
+    print("Local: B12A")
+elif posicao_aprovados == 31:
+    print("Local: B12B")
+elif posicao_aprovados == 32:
+    print("Local: B12C")
+elif posicao_aprovados == 33:
+    print("Local: WC-M")
+elif posicao_aprovados == 34:
+    print("Local: WC-F")
+elif posicao_aprovados == 35:
+    print("Local: C1")
+elif posicao_aprovados == 36:
+    print("Local: C2")
+elif posicao_aprovados == 37:
+    print("Local: C3")
+elif posicao_aprovados == 38:
+    print("Local: C4")
+elif posicao_aprovados == 39:
+    print("Local: C5")
+else:
+    print("Local: Não encontrado!")
