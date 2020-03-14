@@ -2,13 +2,13 @@ import numpy as np
 
 #search = np.array([(-66,-76,-78,-62,-79,-81)]) #busca B6A retorna (B6B, B6C, e B10.5)
 #search = np.array([(-73,-73,-77,-53,-70,-78)]) #busca B6B retorna (B6A, B6B, B6C, B10.5)
-search = np.array([(-70,-60,-61,-69,-78,-72)]) #busca B9B retorna (B9B)
+#search = np.array([(-70,-60,-61,-69,-78,-72)]) #busca B9B retorna (B9B)
 #search = np.array([(-100,-67,-63,-49,-53,-48)]) #busca WC-M retorna (WC-M)
 #search = np.array([(-57,-63,-63,-64,-100,-100)]) #busca B10.2 retorna (B104)
 #search = np.array([(-100,-72,-74,-59,-79,-100)]) #busca B8B retorna (B8A)
 
 #Exemplo
-#search = np.array([(-100,-67,-63,-49,-53,-48)])
+search = np.array([(-75,-72,-75,-70,-63,-65)]) #search B4B result
 
 B1A = np.array([(-46,-78,-72,-70,-81,-59)])     #B1A
 B1B = np.array([(-100,-82,-85,-100,-76,-55)])   #B1B
@@ -57,21 +57,21 @@ margem_erroN = -10.0
 
 
 distancias = candidatos[::] - search # Avalia a distância de cada vetor para o vetor de busca.
-print(distancias)
-input("Press Enter to continue...")
+#print(distancias)
+#input("Press Enter to continue...")
 
 avaliar_dist = np.where(np.absolute(distancias) < margem_erroP, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
 #avaliar_dist = np.where(np.absolute(distancias) < margem_erroN, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
-print(avaliar_dist)
-input("Press Enter to continue...")
+#print(avaliar_dist)
+#input("Press Enter to continue...")
 
 vetores_aprovados = avaliar_dist.all(axis=2) # Marca Verdadeiro se toda a linha tem valores Verdadeiros.
-print(vetores_aprovados)
-input("Press Enter to continue...")
+#print(vetores_aprovados)
+#input("Press Enter to continue...")
 
 posicao_aprovados = np.array(np.where(vetores_aprovados== True)[0]) # Grava a posição dos vetores dentro da margem de erro.
-print(posicao_aprovados)
-input("Press Enter to continue...")
+#print(posicao_aprovados)
+#input("Press Enter to continue...")
 
 print("---- Resultado ----")
 print()
@@ -80,6 +80,8 @@ print("Resultado: ")
 for x in posicao_aprovados:
     print(candidatos[x])
 
+print("Aquii")
+print(candidatos[x][0])
 
 if posicao_aprovados == 0:
     print("Local: B1A")
