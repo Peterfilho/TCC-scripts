@@ -8,7 +8,7 @@ import numpy as np
 #search = np.array([(-100,-72,-74,-59,-79,-100)]) #busca B8B retorna (B8A)
 
 #Exemplo
-search = np.array([(-75,-72,-75,-70,-63,-65)]) #search B4B result
+search = np.array([(-44,-75,-76,-65,-79,-59)]) #search B1A result
 
 B1A = np.array([(-46,-78,-72,-70,-81,-59)])     #B1A
 B1B = np.array([(-100,-82,-85,-100,-76,-55)])   #B1B
@@ -61,11 +61,12 @@ distancias = candidatos[::] - search # Avalia a distância de cada vetor para o 
 #input("Press Enter to continue...")
 
 avaliar_dist = np.where(np.absolute(distancias) < margem_erroP, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
-#avaliar_dist = np.where(np.absolute(distancias) < margem_erroN, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
-#print(avaliar_dist)
+avaliar_distN = np.where(np.absolute(distancias) < margem_erroN, True, False) # Localiza em quais posições dos vetores de distância a margem de erro é satisfeita.
+#print(avaliar_distN)
 #input("Press Enter to continue...")
 
 vetores_aprovados = avaliar_dist.all(axis=2) # Marca Verdadeiro se toda a linha tem valores Verdadeiros.
+vetores_aprovados += avaliar_distN.all(axis=2)
 #print(vetores_aprovados)
 #input("Press Enter to continue...")
 
@@ -80,8 +81,9 @@ print("Resultado: ")
 for x in posicao_aprovados:
     print(candidatos[x])
 
+here = candidatos[x][-1]
 print("Aquii")
-print(candidatos[x][0])
+print(here)
 
 if posicao_aprovados == 0:
     print("Local: B1A")
