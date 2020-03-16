@@ -1,14 +1,14 @@
 import numpy as np
 
 #search = np.array([(-66,-76,-78,-62,-79,-81)]) #busca B6A retorna (B6B, B6C, e B10.5)
-#search = np.array([(-73,-73,-77,-53,-70,-78)]) #busca B6B retorna (B6A, B6B, B6C, B10.5)
+search = np.array([(-73,-73,-77,-53,-70,-78)]) #busca B6B retorna (B6A, B6B, B6C, B10.5)
 #search = np.array([(-70,-60,-61,-69,-78,-72)]) #busca B9B retorna (B9B)
 #search = np.array([(-100,-67,-63,-49,-53,-48)]) #busca WC-M retorna (WC-M)
 #search = np.array([(-57,-63,-63,-64,-100,-100)]) #busca B10.2 retorna (B104)
 #search = np.array([(-100,-72,-74,-59,-79,-100)]) #busca B8B retorna (B8A)
 
 #Exemplo
-search = np.array([(-44,-75,-76,-65,-79,-59)]) #search B1A result
+#search = np.array([(-44,-75,-76,-65,-79,-59)]) #search B1A result
 
 B1A = np.array([(-46,-78,-72,-70,-81,-59)])     #B1A
 B1B = np.array([(-100,-82,-85,-100,-76,-55)])   #B1B
@@ -85,85 +85,85 @@ here = candidatos[x][-1]
 print("Aquii")
 print(here)
 
-if posicao_aprovados == 0:
+if posicao_aprovados[0] == 0:
     print("Local: B1A")
-elif posicao_aprovados == 1:
+elif posicao_aprovados[0] == 1:
     print("Local: B1B")
-elif posicao_aprovados == 2:
+elif posicao_aprovados[0] == 2:
     print("Local: B1C")
-elif posicao_aprovados == 3:
+elif posicao_aprovados[0] == 3:
     print("Local: B2A")
-elif posicao_aprovados == 4:
+elif posicao_aprovados[0] == 4:
     print("Local: B2B")
-elif posicao_aprovados == 5:
+elif posicao_aprovados[0] == 5:
     print("Local: B3A")
-elif posicao_aprovados == 6:
+elif posicao_aprovados[0] == 6:
     print("Local: B3B")
-elif posicao_aprovados == 7:
+elif posicao_aprovados[0] == 7:
     print("Local: B4A")
-elif posicao_aprovados == 8:
+elif posicao_aprovados[0] == 8:
     print("Local: B4B")
-elif posicao_aprovados == 9:
+elif posicao_aprovados[0] == 9:
     print("Local: B4C")
-elif posicao_aprovados == 10:
+elif posicao_aprovados[0] == 10:
     print("Local: B5A")
-elif posicao_aprovados == 11:
+elif posicao_aprovados[0] == 11:
     print("Local: B5B")
-elif posicao_aprovados == 12:
+elif posicao_aprovados[0] == 12:
     print("Local: B6A")
-elif posicao_aprovados == 13:
+elif posicao_aprovados[0] == 13:
     print("Local: B6B")
-elif posicao_aprovados == 14:
+elif posicao_aprovados[0] == 14:
     print("Local: B6C")
-elif posicao_aprovados == 15:
+elif posicao_aprovados[0] == 15:
     print("Local: B7A")
-elif posicao_aprovados == 16:
+elif posicao_aprovados[0] == 16:
     print("Local: B7B")
-elif posicao_aprovados == 17:
+elif posicao_aprovados[0] == 17:
     print("Local: B8A")
-elif posicao_aprovados == 18:
+elif posicao_aprovados[0] == 18:
     print("Local: B8B")
-elif posicao_aprovados == 19:
+elif posicao_aprovados[0] == 19:
     print("Local: B9A")
-elif posicao_aprovados == 20:
+elif posicao_aprovados[0] == 20:
     print("Local: B9B")
-elif posicao_aprovados == 21:
+elif posicao_aprovados[0] == 21:
     print("Local: B9C")
-elif posicao_aprovados == 22:
+elif posicao_aprovados[0] == 22:
     print("Local: B10.1")
-elif posicao_aprovados == 23:
+elif posicao_aprovados[0] == 23:
     print("Local: B10.2")
-elif posicao_aprovados == 24:
+elif posicao_aprovados[0] == 24:
     print("Local: B10.3")
-elif posicao_aprovados == 25:
+elif posicao_aprovados[0] == 25:
     print("Local: B10.4")
-elif posicao_aprovados == 26:
+elif posicao_aprovados[0] == 26:
     print("Local: B10.5")
-elif posicao_aprovados == 27:
+elif posicao_aprovados[0] == 27:
     print("Local: B11A")
-elif posicao_aprovados == 28:
+elif posicao_aprovados[0] == 28:
     print("Local: B11B")
-elif posicao_aprovados == 29:
+elif posicao_aprovados[0] == 29:
     print("Local: B11C")
-elif posicao_aprovados == 30:
+elif posicao_aprovados[0] == 30:
     print("Local: B12A")
-elif posicao_aprovados == 31:
+elif posicao_aprovados[0] == 31:
     print("Local: B12B")
-elif posicao_aprovados == 32:
+elif posicao_aprovados[0] == 32:
     print("Local: B12C")
-elif posicao_aprovados == 33:
+elif posicao_aprovados[0] == 33:
     print("Local: WC-M")
-elif posicao_aprovados == 34:
+elif posicao_aprovados[0] == 34:
     print("Local: WC-F")
-elif posicao_aprovados == 35:
+elif posicao_aprovados[0] == 35:
     print("Local: C1")
-elif posicao_aprovados == 36:
+elif posicao_aprovados[0] == 36:
     print("Local: C2")
-elif posicao_aprovados == 37:
+elif posicao_aprovados[0] == 37:
     print("Local: C3")
-elif posicao_aprovados == 38:
+elif posicao_aprovados[0] == 38:
     print("Local: C4")
-elif posicao_aprovados == 39:
+elif posicao_aprovados[0] == 39:
     print("Local: C5")
 else:
     print("Local: Não encontrado!")
