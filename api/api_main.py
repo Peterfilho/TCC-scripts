@@ -37,8 +37,8 @@ def api_filter():
     query_parameters = request.args
 
     id = query_parameters.get('id')
-    published = query_parameters.get('department')
-    author = query_parameters.get('role')
+    department = query_parameters.get('department')
+    role = query_parameters.get('role')
 
     query = "SELECT * FROM users WHERE"
     to_filter = []
@@ -48,11 +48,11 @@ def api_filter():
         to_filter.append(id)
     if department:
         query += ' department=? AND'
-        to_filter.append(published)
+        to_filter.append(department)
     if role:
         query += ' role=? AND'
-        to_filter.append(author)
-    if not (id or published or author):
+        to_filter.append(role)
+    if not (id or department or role):
         return page_not_found(404)
 
     query = query[:-4] + ';'
