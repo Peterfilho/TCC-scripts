@@ -26,8 +26,8 @@ def test():
     conn = sqlite3.connect('locale.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    all_users = cur.execute('SELECT *, users.* from positions join users using(user_id) WHERE user_id=1;').fetchall()
-
+#    all_users = cur.execute('SELECT *, users.* from positions join users using(user_id) WHERE user_id=1;').fetchall()
+    all_users = cur.execute('SELECT *, users.* from positions join users using(user_id);').fetchall()
     return jsonify({'TEST Result': all_users})
 
 #TODO INSERT A IMAGE OFF MAP WERE IS
@@ -93,8 +93,7 @@ def post():
         name = user['name']
         department = user['department']
         role = user['role']
-        ra = user['ra']
-        cur.execute("insert into users values(NULL, '{}','{}','{}','{}')".format(name, department, role, ra))
+        cur.execute("insert into users values(NULL, '{}','{}','{}')".format(name, department, role))
         conn.commit()
     return {'status':'success'}
 
@@ -113,7 +112,6 @@ def locales():
 #PARAMETERS ON URL
     id = query_parameters.get('id')
     name = query_parameters.get('name')
-    ra = query_parameters.get('ra')
     date = query_parameters.get('date')
     locale = query_parameters.get('locale')
     role = query_parameters.get('role')
@@ -124,9 +122,6 @@ def locales():
     if id:
         query += ' user_id=? AND'
         to_filter.append(id)
-    if ra:
-        query += ' users.ra=? AND'
-        to_filter.append(ra)
     if date:
         query += ' date=? AND'
         to_filter.append(date)
@@ -140,7 +135,7 @@ def locales():
         query += ' users.name=? AND'
         to_filter.append(name)
 
-    if not (id or ra or date or locale or role or name):
+    if not (id or date or locale or role or name):
         return page_not_found(404)
 
     query = query[:-4] + ';'
@@ -155,5 +150,23 @@ def locales():
     results = cur.execute(query, to_filter).fetchall()
 
     return jsonify(results)
+
+@app.route('/api/v1/resources/positions', methods=['POST'])
+def positions_post():
+    conn = sqlite3.connect('locale.db')
+    conn.row_factory = dict_factory
+    cur = conn.cursor()
+    users = request.get_json()
+    for user in users:
+        user_id = user['user_id']
+        search = user['search']
+        result = user['result']
+        locale = user['locale']
+        date = user['date']
+        cur.execute("insert into positions values(NULL, '{}','{}','{}','{}','{}')".format(user_id, search, result, locale, date))
+        conn.commit()
+    return {'status':'success'}
+
+
 
 app.run()
