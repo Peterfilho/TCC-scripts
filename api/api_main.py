@@ -1,9 +1,11 @@
 import flask
 from flask import request, jsonify
+import numpy as np
 import sqlite3
 from json import dumps
 import requests
 import json
+import localize
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -140,9 +142,6 @@ def locales():
 
     query = query[:-4] + ';'
 
-    print("DEBUG")
-    print(query)
-
     conn = sqlite3.connect('locale.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
@@ -167,6 +166,27 @@ def positions_post():
         conn.commit()
     return {'status':'success'}
 
+@app.route('/api/v1/resources/positions/app', methods=['POST'])
+def positions_post_app():
+    conn = sqlite3.connect('locale.db')
+    conn.row_factory = dict_factory
+    cur = conn.cursor()
+    users = request.get_json()
+    for user in users:
+        user_id = user['user_id']
+        find = user['search']
+        date = user['date']
 
+        #Exemplo
+        print("valor que chega!")
+        print(find)
+        aux = localize.test()
+        print(aux)
+        aux = localize.localize(-100,-70,-68,-55,-53,-55)
+        print(aux)
+
+#        cur.execute("insert into positions values(NULL, '{}','{}', {}, {}, '{}')".format(user_id, search, resultado, local, date))
+#        conn.commit()
+    return {'Local': aux}
 
 app.run()

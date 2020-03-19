@@ -4,7 +4,7 @@ database = "locale.db"
 conn = sqlite3.connect(database)
 cur  = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, name TEXT, department TEXT, role TEXT)")
-cur.execute("CREATE TABLE IF NOT EXISTS positions (position_id INTEGER PRIMARY KEY, user_id INTEGER, search TEXT, result TEXT, locale TEXT, date DATETIME, FOREIGN KEY (user_id) REFERENCES users(id))")
+cur.execute("CREATE TABLE IF NOT EXISTS positions (position_id INTEGER PRIMARY KEY NOT NULL, user_id INTEGER NOT NULL, search TEXT NOT NULL, result TEXT, locale TEXT, date DATETIME, FOREIGN KEY (user_id) REFERENCES users(id))")
 #creating users to test
 cur.execute("INSERT INTO `users` (`user_id`, `name`, `department`, `role`) VALUES (1630342, 'Peterson', 'COGETI', 'Estagiario'),(2222222, 'Hermano', 'COINT', 'Professor')")
 #creating locals associated to user Peterson
