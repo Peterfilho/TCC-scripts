@@ -176,17 +176,24 @@ def positions_post_app():
         user_id = user['user_id']
         find = user['search']
         date = user['date']
+#        print("valor que chega!")
+#        print(find)
+        valores = find.split(",")
+#        print("lista de inteiros")
+#        print(valores)
+#        aux = localize.localize(-100,-70,-68,-55,-53,-55)
+#        valores[0],valores[1],valores[2],valores[3],valores[4],valores[5]
 
-        #Exemplo
-        print("valor que chega!")
-        print(find)
-        aux = localize.test()
-        print(aux)
-        aux = localize.localize(-100,-70,-68,-55,-53,-55)
-        print(aux)
+        aux = localize.localize(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5])
 
-#        cur.execute("insert into positions values(NULL, '{}','{}', {}, {}, '{}')".format(user_id, search, resultado, local, date))
-#        conn.commit()
-    return {'Local': aux}
+        locale = aux['locale']
+        result = aux['result']
+        #convert a list of integers to string
+        result = ','.join([str(elem) for elem in result])
+        #print("insert into positions values(NULL, '{}','{}', {}, {}, '{}')".format(user_id, find, result, locale, date))
+
+        cur.execute("INSERT INTO positions VALUES (NULL, '{}','{}', '{}', '{}', '{}')".format(user_id, find, result, locale, date))
+        conn.commit()
+    return {'Status': 'Success'}
 
 app.run()

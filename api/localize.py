@@ -1,5 +1,6 @@
 import numpy as np
 from json import JSONEncoder
+import json
 
 #search = np.array([(-66,-76,-78,-62,-79,-81)]) #busca B6A retorna (B6B, B6C, e B10.5)
 #search = np.array([(-73,-73,-77,-53,-70,-78)]) #busca B6B retorna (B6A, B6B, B6C, B10.5)
@@ -8,14 +9,9 @@ from json import JSONEncoder
 #search = np.array([(-57,-63,-63,-64,-100,-100)]) #busca B10.2 retorna (B104)
 #search = np.array([(-100,-72,-74,-59,-79,-100)]) #busca B8B retorna (B8A)
 
-#Exemplo
-#search = np.array([(-44,-75,-76,-65,-79,-59)]) #search B1A result
-def test():
-    return ("hello i'm working :)")
-
 def localize(aux1, aux2, aux3, aux4, aux5, aux6):
 
-    search = np.array([(aux1,aux2,aux3,aux4,aux5,aux6)])
+    search = np.array([(aux1,aux2,aux3,aux4,aux5,aux6)], dtype=np.int_)
 
     B1A = np.array([(-46,-78,-72,-70,-81,-59)])     #B1A
     B1B = np.array([(-100,-82,-85,-100,-76,-55)])   #B1B
@@ -88,91 +84,137 @@ def localize(aux1, aux2, aux3, aux4, aux5, aux6):
         print(candidatos[x])
 
         here = candidatos[x][-1]
-        print("Aquii")
+        print("Melhor resultado:")
         print(here)
 
         if posicao_aprovados[0] == 0:
             print("Local: B1A")
+            local = "B1A"
         elif posicao_aprovados[0] == 1:
             print("Local: B1B")
+            local = "B1B"
         elif posicao_aprovados[0] == 2:
             print("Local: B1C")
+            local = "B1C"
         elif posicao_aprovados[0] == 3:
             print("Local: B2A")
+            local = "B2A"
         elif posicao_aprovados[0] == 4:
             print("Local: B2B")
+            local = "B2B"
         elif posicao_aprovados[0] == 5:
             print("Local: B3A")
+            local = "B3A"
         elif posicao_aprovados[0] == 6:
             print("Local: B3B")
+            local = "B3B"
         elif posicao_aprovados[0] == 7:
             print("Local: B4A")
+            local = "B4A"
         elif posicao_aprovados[0] == 8:
             print("Local: B4B")
+            local = "B4B"
         elif posicao_aprovados[0] == 9:
             print("Local: B4C")
+            local = "B4C"
         elif posicao_aprovados[0] == 10:
             print("Local: B5A")
+            local = "B5A"
         elif posicao_aprovados[0] == 11:
             print("Local: B5B")
+            local = "B5B"
         elif posicao_aprovados[0] == 12:
             print("Local: B6A")
+            local = "B6A"
         elif posicao_aprovados[0] == 13:
             print("Local: B6B")
+            local = "B6B"
         elif posicao_aprovados[0] == 14:
             print("Local: B6C")
+            local = "B6C"
         elif posicao_aprovados[0] == 15:
             print("Local: B7A")
+            local = "B7A"
         elif posicao_aprovados[0] == 16:
             print("Local: B7B")
+            local = "B7B"
         elif posicao_aprovados[0] == 17:
             print("Local: B8A")
+            local = "B8A"
         elif posicao_aprovados[0] == 18:
             print("Local: B8B")
+            local = "B8B"
         elif posicao_aprovados[0] == 19:
             print("Local: B9A")
+            local = "B9A"
         elif posicao_aprovados[0] == 20:
             print("Local: B9B")
+            local = "B9B"
         elif posicao_aprovados[0] == 21:
             print("Local: B9C")
+            local = "B9C"
         elif posicao_aprovados[0] == 22:
             print("Local: B10.1")
+            local = "B10.1"
         elif posicao_aprovados[0] == 23:
             print("Local: B10.2")
+            local = "B10.2"
         elif posicao_aprovados[0] == 24:
             print("Local: B10.3")
+            local = "B10.3"
         elif posicao_aprovados[0] == 25:
             print("Local: B10.4")
+            local = "B10.4"
         elif posicao_aprovados[0] == 26:
             print("Local: B10.5")
+            local = "B10.5"
         elif posicao_aprovados[0] == 27:
             print("Local: B11A")
+            local = "B11A"
         elif posicao_aprovados[0] == 28:
             print("Local: B11B")
+            local = "B11B"
         elif posicao_aprovados[0] == 29:
             print("Local: B11C")
+            local = "B11C"
         elif posicao_aprovados[0] == 30:
             print("Local: B12A")
+            local = "B12A"
         elif posicao_aprovados[0] == 31:
             print("Local: B12B")
+            local = "B12B"
         elif posicao_aprovados[0] == 32:
             print("Local: B12C")
+            local = "B12C"
         elif posicao_aprovados[0] == 33:
             print("Local: WC-M")
             local = "WC-M"
         elif posicao_aprovados[0] == 34:
             print("Local: WC-F")
+            local = "WC-F"
         elif posicao_aprovados[0] == 35:
             print("Local: C1")
+            local = "C1"
         elif posicao_aprovados[0] == 36:
             print("Local: C2")
+            local = "C2"
         elif posicao_aprovados[0] == 37:
             print("Local: C3")
+            local = "C3"
         elif posicao_aprovados[0] == 38:
             print("Local: C4")
+            local = "C4"
         elif posicao_aprovados[0] == 39:
             print("Local: C5")
+            local = "C5"
         else:
             print("Local: Não encontrado!")
 
-    return (local)
+    x = {
+        'Status': 'Success',
+        "search" : search.tolist(),
+        "locale" : local,
+        "result" : here.tolist()
+    }
+    json.dumps(x)
+    return x

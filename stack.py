@@ -1,9 +1,9 @@
 import numpy as np
 
 #search = np.array([(-66,-76,-78,-62,-79,-81)]) #busca B6A retorna (B6B, B6C, e B10.5)
-search = np.array([(-73,-73,-77,-53,-70,-78)]) #busca B6B retorna (B6A, B6B, B6C, B10.5)
+#search = np.array([(-73,-73,-77,-53,-70,-78)]) #busca B6B retorna (B6A, B6B, B6C, B10.5)
 #search = np.array([(-70,-60,-61,-69,-78,-72)]) #busca B9B retorna (B9B)
-#search = np.array([(-100,-67,-63,-49,-53,-48)]) #busca WC-M retorna (WC-M)
+search = np.array([(-100,-67,-63,-49,-53,-48)]) #busca WC-M retorna (WC-M)
 #search = np.array([(-57,-63,-63,-64,-100,-100)]) #busca B10.2 retorna (B104)
 #search = np.array([(-100,-72,-74,-59,-79,-100)]) #busca B8B retorna (B8A)
 
