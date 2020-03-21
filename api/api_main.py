@@ -91,11 +91,18 @@ def post():
     conn.row_factory = dict_factory
     cur = conn.cursor()
     users = request.get_json()
+    print("o que chega?")
+    print(users)
+
     for user in users:
+        user_id = user['ra']
         name = user['name']
         department = user['department']
         role = user['role']
-        cur.execute("insert into users values(NULL, '{}','{}','{}')".format(name, department, role))
+
+        print("insert into users values('{}', '{}','{}','{}')".format(user_id, name, department, role))
+
+        cur.execute("insert into users values('{}','{}','{}','{}')".format(user_id, name, department, role))
         conn.commit()
     return {'status':'success'}
 
@@ -138,6 +145,44 @@ def locales():
         to_filter.append(name)
 
     if not (id or date or locale or role or name):
+        return page_not_found(404)
+
+    query = query[:-4] + ';'
+
+    conn = sqlite3.connect('locale.db')
+    conn.row_factory = dict_factory
+    cur = conn.cursor()
+
+    results = cur.execute(query, to_filter).fetchall()
+
+    return jsonify(results)
+
+@app.route('/api/v1/resources/positions/last', methods=['GET'])
+def last_locales():
+    query_parameters = request.args
+#PARAMETERS ON URL
+    id = query_parameters.get('id')
+    name = query_parameters.get('name')
+    date = query_parameters.get('date')
+    locale = query_parameters.get('locale')
+
+    query = "SELECT *, users.* FROM positions join users using MAX(user_id) WHERE"
+    to_filter = []
+
+    if id:
+        query += ' user_id=? AND'
+        to_filter.append(id)
+    if date:
+        query += ' date=? AND'
+        to_filter.append(date)
+    if locale:
+        query += ' locale=? AND'
+        to_filter.append(locale)
+    if name:
+        query += ' users.name=? AND'
+        to_filter.append(name)
+
+    if not (id or date or locale or name):
         return page_not_found(404)
 
     query = query[:-4] + ';'
