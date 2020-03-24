@@ -6,6 +6,7 @@ from json import dumps
 import requests
 import json
 import localize
+import os
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -119,7 +120,7 @@ def locales_all():
 def locales():
     query_parameters = request.args
 #PARAMETERS ON URL
-    id = query_parameters.get('id')
+    id = query_parameters.get('ra')
     name = query_parameters.get('name')
     date = query_parameters.get('date')
     locale = query_parameters.get('locale')
@@ -216,29 +217,35 @@ def positions_post_app():
     conn = sqlite3.connect('locale.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    users = request.get_json()
-    for user in users:
-        user_id = user['user_id']
-        find = user['search']
-        date = user['date']
-#        print("valor que chega!")
-#        print(find)
-        valores = find.split(",")
+#    data = json.loads(request.get_json())
+    data = request.get_json()
+    print("Content in POST")
+    print(data)
+    user_id = data['user_id']
+    find = data['search']
+    date = data['date']
+#    print("valor que chega!")
+#    print(find)
+    valores = find.split(",")
 #        print("lista de inteiros")
 #        print(valores)
 #        aux = localize.localize(-100,-70,-68,-55,-53,-55)
 #        valores[0],valores[1],valores[2],valores[3],valores[4],valores[5]
 
-        aux = localize.localize(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5])
+    aux = localize.localize(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5])
 
-        locale = aux['locale']
-        result = aux['result']
-        #convert a list of integers to string
-        result = ','.join([str(elem) for elem in result])
-        #print("insert into positions values(NULL, '{}','{}', {}, {}, '{}')".format(user_id, find, result, locale, date))
+    locale = aux['locale']
+    result = aux['result']
+    #convert a list of integers to string
+    result = ','.join([str(elem) for elem in result])
+    print("insert into positions values(NULL, '{}','{}', '{}', '{}', '{}')".format(user_id, find, result, locale, date))
 
-        cur.execute("INSERT INTO positions VALUES (NULL, '{}','{}', '{}', '{}', '{}')".format(user_id, find, result, locale, date))
-        conn.commit()
+    cur.execute("INSERT INTO positions VALUES (NULL, '{}', '{}', '{}', '{}', '{}')".format(user_id, find, result, locale, date))
+    conn.commit()
     return {'Status': 'Success'}
 
-app.run()
+#app.run()
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='192.168.0.20', port=port)
