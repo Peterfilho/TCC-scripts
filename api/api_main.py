@@ -30,7 +30,8 @@ def test():
     conn.row_factory = dict_factory
     cur = conn.cursor()
 #    all_users = cur.execute('SELECT *, users.* from positions join users using(user_id) WHERE user_id=1;').fetchall()
-    all_users = cur.execute('SELECT *, users.* from positions join users using(user_id);').fetchall()
+#    all_users = cur.execute('SELECT *, users.* from positions join users using(user_id);').fetchall()
+    all_users = cur.execute('SELECT * from positions ORDER BY position_id DESC;').fetchall()
     return jsonify({'TEST Result': all_users})
 
 #TODO INSERT A IMAGE OFF MAP WERE IS
@@ -45,7 +46,7 @@ def api_all():
     conn = sqlite3.connect('locale.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    all_users = cur.execute('SELECT * FROM users;').fetchall()
+    all_users = cur.execute('SELECT * FROM users ORDER BY user_id DESC;').fetchall()
 
     return jsonify({'users': all_users})
 
