@@ -92,28 +92,27 @@ def post():
     conn = sqlite3.connect('locale.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    users = request.get_json()
+    user = request.get_json()
     print("o que chega?")
-    print(users)
+    print(user)
 
-    for user in users:
-        user_id = user['ra']
-        name = user['name']
-        department = user['department']
-        role = user['role']
+    #for user in users:
+    user_id = user['ra']
+    name = user['name']
+    department = user['department']
+    role = user['role']
 
-        print("insert into users values('{}', '{}','{}','{}')".format(user_id, name, department, role))
-
-        cur.execute("insert into users values('{}','{}','{}','{}')".format(user_id, name, department, role))
-        conn.commit()
-    return {'status':'success'}
+    print("insert into users values('{}', '{}','{}','{}')".format(user_id, name, department, role))
+    cur.execute("insert into users values('{}','{}','{}','{}')".format(user_id, name, department, role))
+    conn.commit()
+    return {'Success': user}
 
 @app.route('/api/v1/resources/positions/all', methods=['GET'])
 def locales_all():
     conn = sqlite3.connect('locale.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    all_users = cur.execute('SELECT * FROM positions;').fetchall()
+    all_users = cur.execute('SELECT * FROM positions ORDER BY position_id DESC;').fetchall()
 
     return jsonify({'users': all_users})
 

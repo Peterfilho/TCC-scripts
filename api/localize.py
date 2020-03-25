@@ -87,6 +87,7 @@ def localize(aux1, aux2, aux3, aux4, aux5, aux6):
         print("Melhor resultado:")
         print(here)
 
+        
         if posicao_aprovados[0] == 0:
             print("Local: B1A")
             local = "B1A"
