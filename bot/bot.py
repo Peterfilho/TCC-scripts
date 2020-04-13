@@ -25,6 +25,31 @@ def send_photo(message):
     bot.send_photo(message.chat.id, img, reply_to_message_id=message.message_id)
     img.close()
 
+@bot.message_handler(commands=['corona'])
+def corona(session):
+    url = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/latest_stat_by_country.php?country=brazil"
+
+    headers = {
+        'x-rapidapi-host': "coronavirus-monitor.p.rapidapi.com",
+        'x-rapidapi-key': "9202259c1dmsh5a204e93ff9f9c4p19d5cfjsn75e520c8ab51"
+    }
+    r = requests.get(url, headers=headers)
+    data = r.json()
+
+    print("Resultado: {}".format(data))
+    auxs = data['latest_stat_by_country']
+
+    for aux in auxs:
+        bot.reply_to(session, "⚠ Casos de Corona vírus (COVID-19) no Brasil:\n"
+        "\n"
+       "Total de casos: {}\n"
+       "Total de mortes: {}\n"
+       "Casos ativos: {}\n"
+       "Casos criticos: {}\n"
+       "Casos recuperados: {}\n"
+       "Casos identificados hoje: {}\n"
+       .format(aux['total_cases'],aux['total_deaths'], aux['active_cases'], aux['serious_critical'], aux['total_recovered'], aux['new_cases']))
+
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     bot.reply_to(message, u"Olá, bem-vindo ao bot!")
@@ -32,6 +57,9 @@ def send_welcome(message):
 #register user
 @bot.message_handler(func=lambda m: True)
 def reply(session):
+    hoje = datetime.datetime.today()
+    semana = hoje.strftime("%w")
+
     search = session.text
     if re.findall("^[Cc]adastrar", session.text.lower()):
         if session.from_user.id != 332154421:
@@ -53,7 +81,7 @@ def reply(session):
         "Nome: {}\n R.A: {}\n Setor: {}\n Cargo: {}"
         .format(name, ra, department, role))
 
-        url = 'http://192.168.0.20:5000/api/v1/resources/users'
+        url = 'http://where-i-am-api.herokuapp.com/api/v1/resources/users'
         headers = {'Content-Type': 'application/json'}
         PARAMETERS = {'name':name,
     	    'department':department,
@@ -75,7 +103,7 @@ def reply(session):
         search = search.split(" ")
         ra = search[1]
 #        print(ra)
-        r = requests.get("http://192.168.0.20:5000/api/v1/resources/positions?ra={}".format(ra))
+        r = requests.get("http://where-i-am-api.herokuapp.com/api/v1/resources/positions?ra={}".format(ra))
         data = r.json()
         if r.content == b'[]\n':
             bot.reply_to(session, "🤷‍♂️ Não encontrei nada!\nVerifique se o RA que buscou é válido")
@@ -90,5 +118,15 @@ def reply(session):
 
     elif re.findall("test", session.text.lower()):
         bot.reply_to(session, "lol")
+
+    elif re.findall("hoje",session.text.lower()):
+        print(semana)
+        if semana == '5':
+            bot.reply_to(session, "Hoje é sexta feira carai! https://www.youtube.com/watch?v=gNkLGEUae_s")
+            return
+        elif semana == '7':
+            bot.reply_to(session, "Fique de boas fera, hoje é dia de descansar 😌")
+            return
+
 
 bot.polling()
